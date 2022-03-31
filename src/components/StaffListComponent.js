@@ -48,4 +48,23 @@ class StaffList extends Component {
       return <div></div>;
     }
   }
+
+  render() {
+    const staffList = this.props.staffs.map((staff) => {
+      return (
+        <div className={this.state.columDefault}>
+          <Card key={staff.id} onClick={() => this.onStaffSelect(staff)}>
+            <CardBody>
+              <CardTitle>{staff.name}</CardTitle>
+            </CardBody>
+          </Card>
+        </div>
+      );
+    });
+    return (
+      <div></div>
+    );
+  }
 }
+
+export default StaffList;
