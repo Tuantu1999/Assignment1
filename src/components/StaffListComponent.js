@@ -7,7 +7,7 @@ class StaffList extends Component {
         super(props);
         this.state = {
             selectedStaff: null,
-            selectedColumn: "col-12 col-md-6 col-lg-4 mt-3"
+            selectedColumn: "col-12 col-md-6 col-lg-4 mt-5"
         };
     }
 
@@ -29,7 +29,7 @@ class StaffList extends Component {
                 <div className="col-12">
                     <Card>
                         {/* Ảnh nhân viên */}
-                        <CardImg width="80%" src={staff.image} alt={staff.name} />
+                        <CardImg src={staff.image} width="100%" alt={staff.name} />
 
                         {/* Thẻ thông tin nhân viên */}
                         <CardBody>
@@ -68,7 +68,8 @@ class StaffList extends Component {
         const staffList = this.props.staffs.map((staff) => {
             return (
                 <div className={this.state.selectedColumn}>
-                    <Card key={staff.id} onClick={() => this.onStaffSelect(staff)}>
+                    {/* dùng key để giúp react quản lý giá trị mà nó trỏ tới */}
+                    <Card key={staff.id} onClick={() => this.onStaffSelect(staff)}> 
                         <CardBody>
                             <CardTitle>{staff.name}</CardTitle>
                         </CardBody>
@@ -78,12 +79,36 @@ class StaffList extends Component {
         });
         return (
             <div className="container">
+                {/* Chọn chế độ hiển thị */}
                 <div className="row m-3">
-                    
+                    <label>
+                        <span>
+                            <b>Chọn số cột hiển thị</b>
+                        </span>
+                    </label>
+                    <button onClick={() => this.onColumnSelect("col-md-2 mt-1")} className="btn btn-success mr-3">
+                        6 cột
+                    </button>
+                    <button onClick={() => this.onColumnSelect("col-md-3 mt-1")} className="btn btn-success mr-3">
+                        4 cột
+                    </button>
+                    <button onClick={() => this.onColumnSelect("col-md-4 mt-1")} className="btn btn-success mr-3">
+                        3 cột
+                    </button>
+                    <button onClick={() => this.onColumnSelect("col-md-6 mt-1")} className="btn btn-success mr-3">
+                        2 cột
+                    </button>
+                    <button onClick={() => this.onColumnSelect("col-md-12 mt-1")} className="btn btn-success mr-3">
+                        1 cột
+                    </button>
                 </div>
+
+                {/* hiển thị list */}
                 <div className="row">{staffList}</div>
+
+                {/* show list details */}
                 <div className="row mt-5">
-                    {this.renderStaff(this.state.onStaffSelect)}
+                    {this.renderStaff(this.state.selectedStaff)}
                 </div>
             </div>
         );
